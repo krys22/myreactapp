@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import HighScore from './Highscore';
+import './css/style.css';
 
 class Application extends Component{
 
@@ -16,6 +17,13 @@ class Application extends Component{
         this.setState({count: this.state.count + 1});
     }
 
+    resetCount = (e) => {
+        this.setState({
+            count:0,
+            overTen: false
+        });
+    }
+
     componentDidUpdate(props, state){
         console.log("Updated from", state, "to ", this.state);
         if(this.state.count > 10 && this.state.count !== state.count && !this.state.overTen){
@@ -28,7 +36,11 @@ class Application extends Component{
         
         return (<div>
             <h1>You clicked the button {count} times</h1>
-            <HighScore />
+            <HighScore 
+            
+            overTen = {this.state.overTen}
+            onReset = {this.resetCount}
+            />
             <span>
                 <button onClick={() => this.handleClick()}>
                 Click Me
